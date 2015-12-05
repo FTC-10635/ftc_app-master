@@ -65,7 +65,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("testDriveTrain", testDriveTrain.class);
     manager.register("testDriveTrainMatt", testDriveTrainMatt.class);
     manager.register("testAuto", testAuto.class);
-
+    manager.register("testingEncoders", testingEncoders.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.

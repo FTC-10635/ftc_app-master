@@ -3,7 +3,9 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Created by Matthew Hotham on 11/4/2015.
@@ -53,6 +55,7 @@ public class testDriveTrainMatt extends OpMode {
     Servo climberR;
     Servo button;
     Servo climberRR;
+    TouchSensor touch;
 
     /**
      * Constructor
@@ -102,7 +105,7 @@ public class testDriveTrainMatt extends OpMode {
     public void loop() {
 
 		/*
-		 * Gamepad 1
+		 * Gamepad 2 controls the slide motor via left stick
 		 *
 		 * Gamepad 1 controls the motors via the left and right sticks, and it controls the
 		 * servos via the a,b, x, y buttons
@@ -112,21 +115,25 @@ public class testDriveTrainMatt extends OpMode {
         // note that if y equal -1 then joystick is pushed all of the way forward.
         float left = -gamepad1.left_stick_y;
         float right = -gamepad1.right_stick_y;
+        float slide = -gamepad2.left_stick_y;
 
         // clip the right/left values so that the values never exceed +/- 1
         right = Range.clip(right, -1, 1);
         left = Range.clip(left, -1, 1);
+        slide = Range.clip(slide, -1, 1);
 
         // scale the joystick value to make it easier to control
         // the robot more precisely at slower speeds.
         right = (float)scaleInput(right);
         left =  (float)scaleInput(left);
+        slide = (float)scaleInput(slide);
 
         // write the values to the motors
         motorFrontRight.setPower(right);
         motorFrontLeft.setPower(left);
         motorBackRight.setPower(right);
         motorBackLeft.setPower(left);
+        motorslideM.setPower(slide);
 
         // update the position of the servo.
         if (gamepad1.a) {
@@ -180,6 +187,7 @@ public class testDriveTrainMatt extends OpMode {
         telemetry.addData("climberRR", "climberRR:  " + String.format("%.2f", climberRRPosition));
         telemetry.addData("left tgt pwr",  "left  pwr:  " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr:  " + String.format("%.2f", right));
+        telemetry.addData("slide tgt pwr", "slide pwr:  " + String.format("%.2f", slide));
     }
 
 //     * Code to run when the op mode is first disabled goes here

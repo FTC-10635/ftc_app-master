@@ -57,7 +57,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("NullOp", NullOp.class);
 
-    //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
+//    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
 //    manager.register("K9TeleOp", K9TeleOp.class);
 //    manager.register("K9Line", K9Line.class);
 //    manager.register ("PushBotAuto", PushBotAuto.class);
@@ -66,6 +66,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("testDriveTrainMatt", testDriveTrainMatt.class);
     manager.register("testAuto", testAuto.class);
     manager.register("testingEncoders", testingEncoders.class);
+    manager.register("MRRGBExample", MRRGBExample.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.

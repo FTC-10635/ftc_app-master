@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.TouchSensor;
+
 
 /**
  * Created by Matthew Hotham on 11/4/2015.
@@ -55,7 +55,7 @@ public class testDriveTrainMatt extends OpMode {
     Servo climberR;
     Servo button;
     Servo climberRR;
-    TouchSensor touch;
+    TouchSensor touchBeacon;
 
     /**
      * Constructor
@@ -89,6 +89,8 @@ public class testDriveTrainMatt extends OpMode {
         climberR = hardwareMap.servo.get("climberR");
         button = hardwareMap.servo.get("button");
         climberRR = hardwareMap.servo.get("climberRR");
+
+        touchBeacon = hardwareMap.touchSensor.get("touchBeacon");
 
         // assign the starting position of the servos
         climberDPosition = 1.0;
@@ -188,6 +190,7 @@ public class testDriveTrainMatt extends OpMode {
         telemetry.addData("left tgt pwr",  "left  pwr:  " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr:  " + String.format("%.2f", right));
         telemetry.addData("slide tgt pwr", "slide pwr:  " + String.format("%.2f", slide));
+        telemetry.addData("isPressed", String.valueOf(touchBeacon.isPressed()));
     }
 
 //     * Code to run when the op mode is first disabled goes here

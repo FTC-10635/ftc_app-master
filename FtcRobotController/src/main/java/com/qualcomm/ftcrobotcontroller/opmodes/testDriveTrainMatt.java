@@ -15,14 +15,14 @@ public class testDriveTrainMatt extends OpMode {
     final static double climberD_MIN_RANGE  = 0.00;
     final static double climberD_MAX_RANGE  = 1.00;
 //    climber release left
-    final static double climberR_MIN_RANGE  = 0.00;
-    final static double climberR_MAX_RANGE  = 1.00;
+    final static double climberR_MIN_RANGE  = 0.10;
+    final static double climberR_MAX_RANGE  = 0.68;
 //    button presser
     final static double button_MIN_RANGE  = 0.30;
     final static double button_MAX_RANGE  = 0.60;
 //    climber release right
-    final static double climberRR_MIN_RANGE = 0.00;
-    final static double climberRR_MAX_RANGE = 1.00;
+    final static double climberRR_MIN_RANGE = 0.20;
+    final static double climberRR_MAX_RANGE = 0.78;
 
 
     // position of the servo
@@ -33,7 +33,7 @@ public class testDriveTrainMatt extends OpMode {
 
     double climberRPosition;
 
-    double climberRDelta = 0.01;
+    double climberRDelta = 0.1;
 
     double buttonPosition;
 
@@ -48,6 +48,7 @@ public class testDriveTrainMatt extends OpMode {
     DcMotor motorFrontLeft;
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
+    DcMotor motorslideM;
     Servo climberD;
     Servo climberR;
     Servo button;
@@ -66,41 +67,31 @@ public class testDriveTrainMatt extends OpMode {
 
     @Override
     public void init() {
+
 		/*
 		 * Use the hardwareMap to get the dc motors and servos by name. Note
 		 * that the names of the devices must match the names used when you
 		 * configured your robot and created the configuration file.
 		 */
 
-		/*
-		 * For the demo Tetrix K9 bot we assume the following,
-		 *   There are two motors "motor_1" and "motor_2"
-		 *   "motor_1" is on the right side of the bot.
-		 *   "motor_2" is on the left side of the bot.
-		 *
-		 * We also assume that there are two servos "servo_1" and "servo_6"
-		 *    "servo_1" controls the arm joint of the manipulator.
-		 *    "servo_6" controls the claw joint of the manipulator.
-		 */
         motorFrontLeft = hardwareMap.dcMotor.get("frontLeft");
         motorFrontRight = hardwareMap.dcMotor.get("frontRight");
         motorFrontRight.setDirection(DcMotor.Direction.REVERSE);
         motorBackLeft = hardwareMap.dcMotor.get("backLeft");
         motorBackRight = hardwareMap.dcMotor.get("backRight");
         motorBackRight.setDirection(DcMotor.Direction.REVERSE);
+        motorslideM = hardwareMap.dcMotor.get("slideM");
 
         climberD = hardwareMap.servo.get("climberD");
         climberR = hardwareMap.servo.get("climberR");
         button = hardwareMap.servo.get("button");
         climberRR = hardwareMap.servo.get("climberRR");
 
-
         // assign the starting position of the servos
         climberDPosition = 1.0;
-        climberRPosition = 1.0;
+        climberRPosition = 0.68;
         buttonPosition = 0.45;
-        climberRRPosition = 0.00;
-
+        climberRRPosition = 0.20;
     }
 
 //     * This method will be called repeatedly in a loop
@@ -142,10 +133,10 @@ public class testDriveTrainMatt extends OpMode {
            climberDPosition += climberDDelta;
         }
         if (gamepad1.x) {
-            climberRPosition += climberRDelta;
+            climberRRPosition += climberRRDelta;
         }
         if (gamepad1.dpad_up) {
-            climberRRPosition += climberRRDelta;
+            climberRPosition += climberRDelta;
         }
         if (gamepad1.dpad_left) {
            buttonPosition += buttonDelta;
@@ -157,15 +148,11 @@ public class testDriveTrainMatt extends OpMode {
             climberDPosition -= climberDDelta;
         }
         if (gamepad1.y) {
-            climberRPosition -= climberRDelta;
-        }
-        if (gamepad1.dpad_down) {
             climberRRPosition -= climberRRDelta;
         }
-
-        // update the position of the servo
-
-
+        if (gamepad1.dpad_down) {
+            climberRPosition -= climberRDelta;
+        }
 
         // clip the position values so that they never exceed their allowed range.
         climberDPosition = Range.clip(climberDPosition, climberD_MIN_RANGE, climberD_MAX_RANGE);
@@ -193,7 +180,6 @@ public class testDriveTrainMatt extends OpMode {
         telemetry.addData("climberRR", "climberRR:  " + String.format("%.2f", climberRRPosition));
         telemetry.addData("left tgt pwr",  "left  pwr:  " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr:  " + String.format("%.2f", right));
-
     }
 
 //     * Code to run when the op mode is first disabled goes here

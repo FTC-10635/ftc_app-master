@@ -15,14 +15,14 @@ public class testDriveTrainMatt extends OpMode {
     final static double climberD_MIN_RANGE  = 0.00;
     final static double climberD_MAX_RANGE  = 1.00;
 //    climber release left
-    final static double climberR_MIN_RANGE  = 0.38;
+    final static double climberR_MIN_RANGE  = 0.00;
     final static double climberR_MAX_RANGE  = 1.00;
 //    button presser
     final static double button_MIN_RANGE  = 0.30;
     final static double button_MAX_RANGE  = 0.60;
 //    climber release right
     final static double climberRR_MIN_RANGE = 0.00;
-    final static double climberRR_MAX_RANGE = 0.00;
+    final static double climberRR_MAX_RANGE = 1.00;
 
 
     // position of the servo
@@ -33,7 +33,7 @@ public class testDriveTrainMatt extends OpMode {
 
     double climberRPosition;
 
-    double climberRDelta = 0.1;
+    double climberRDelta = 0.01;
 
     double buttonPosition;
 
@@ -41,7 +41,7 @@ public class testDriveTrainMatt extends OpMode {
 
     double climberRRPosition;
 
-    double climberRRDelta = 0.1;
+    double climberRRDelta = 0.01;
 
 
     DcMotor motorFrontRight;
@@ -113,8 +113,8 @@ public class testDriveTrainMatt extends OpMode {
 		/*
 		 * Gamepad 1
 		 *
-		 * Gamepad 1 controls the motors via the left stick, and it controls the
-		 * wrist/claw via the a,b, x, y buttons
+		 * Gamepad 1 controls the motors via the left and right sticks, and it controls the
+		 * servos via the a,b, x, y buttons
 		 */
 
         // tank drive
@@ -206,7 +206,7 @@ public class testDriveTrainMatt extends OpMode {
     }
 
 //     * This method scales the joystick input so for low joystick values, the
-//     * scaled value is less than linear.  This is to make it easier to drive
+//     * scaled value is less than linear. This is to make it easier to drive
 //     * the robot more precisely at slower speeds.
 
     double scaleInput(double dVal)  {

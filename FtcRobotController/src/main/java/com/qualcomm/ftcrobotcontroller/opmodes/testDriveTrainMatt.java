@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- * Created by Cameron on 11/4/2015.
+ * Created by Matthew Hotham on 11/4/2015.
  */
 public class testDriveTrainMatt extends OpMode {
 

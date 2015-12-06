@@ -33,7 +33,7 @@ public class testDriveTrainMatt extends OpMode {
 
     double climberRPosition;
 
-    double climberRDelta = 0.1;
+    double climberRDelta = 1.0;
 
     double buttonPosition;
 
@@ -41,7 +41,7 @@ public class testDriveTrainMatt extends OpMode {
 
     double climberRRPosition;
 
-    double climberRRDelta = 0.01;
+    double climberRRDelta = 1.0;
 
 
     DcMotor motorFrontRight;
@@ -133,25 +133,25 @@ public class testDriveTrainMatt extends OpMode {
            climberDPosition += climberDDelta;
         }
         if (gamepad1.x) {
-            climberRRPosition += climberRRDelta;
+            climberRRPosition -= climberRRDelta;
         }
         if (gamepad1.dpad_up) {
-            climberRPosition += climberRDelta;
+            climberRPosition -= climberRDelta;
         }
         if (gamepad1.dpad_left) {
-           buttonPosition += buttonDelta;
+           buttonPosition -= buttonDelta;
         }
         if (gamepad1.dpad_right) {
-           buttonPosition -= buttonDelta;
+           buttonPosition += buttonDelta;
         }
         if (gamepad1.b) {
             climberDPosition -= climberDDelta;
         }
         if (gamepad1.y) {
-            climberRRPosition -= climberRRDelta;
+            climberRRPosition += climberRRDelta;
         }
         if (gamepad1.dpad_down) {
-            climberRPosition -= climberRDelta;
+            climberRPosition += climberRDelta;
         }
 
         // clip the position values so that they never exceed their allowed range.

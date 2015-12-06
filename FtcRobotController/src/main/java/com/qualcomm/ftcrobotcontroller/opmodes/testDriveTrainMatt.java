@@ -12,19 +12,19 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class testDriveTrainMatt extends OpMode {
 
-
     // TETRIX VALUES.
 //    climber delivery system
     final static double climberD_MIN_RANGE  = 0.00;
     final static double climberD_MAX_RANGE  = 1.00;
 //    climber release left
-//    final static double climberR_MIN_RANGE  = 0.38;
-//    final static double climberR_MAX_RANGE  = 1.00;
+    final static double climberR_MIN_RANGE  = 0.38;
+    final static double climberR_MAX_RANGE  = 1.00;
 //    button presser
     final static double button_MIN_RANGE  = 0.30;
     final static double button_MAX_RANGE  = 0.60;
-
-
+//    climber release right
+    final static double climberRR_MIN_RANGE = 0.00;
+    final static double climberRR_MAX_RANGE = 0.00;
 
 
     // position of the servo
@@ -33,19 +33,17 @@ public class testDriveTrainMatt extends OpMode {
     // amount to change the servo position
     double climberDDelta = 0.01;
 
-    // position of the servo
-//    double climberRPosition;
+    double climberRPosition;
 
-    // amount to change the servo position
-//    double climberRDelta = 0.1;
-
+    double climberRDelta = 0.1;
 
     double buttonPosition;
 
-
     double buttonDelta = 0.01;
 
+    double climberRRPosition;
 
+    double climberRRDelta = 0.1;
 
 
     DcMotor motorFrontRight;
@@ -53,8 +51,9 @@ public class testDriveTrainMatt extends OpMode {
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
     Servo climberD;
-//    Servo climberR;
+    Servo climberR;
     Servo button;
+    servo climberRR;
 
     /**
      * Constructor
@@ -93,14 +92,16 @@ public class testDriveTrainMatt extends OpMode {
         motorBackRight.setDirection(DcMotor.Direction.REVERSE);
 
         climberD = hardwareMap.servo.get("climberD");
-//        climberR = hardwareMap.servo.get("climberR");
+        climberR = hardwareMap.servo.get("climberR");
         button = hardwareMap.servo.get("button");
+        climberRR = hardwareMap.servo.get("climberRR");
 
 
         // assign the starting position of the servos
         climberDPosition = 1.0;
-//        climberRPosition = 1.0;
+        climberRPosition = 1.0;
         buttonPosition = 0.45;
+        climberRRPosition = 0.00;
 
     }
 
@@ -164,15 +165,17 @@ public class testDriveTrainMatt extends OpMode {
 
 
 
-
-
         // clip the position values so that they never exceed their allowed range.
         climberDPosition = Range.clip(climberDPosition, climberD_MIN_RANGE, climberD_MAX_RANGE);
         buttonPosition = Range.clip(buttonPosition, button_MIN_RANGE, button_MAX_RANGE);
+        climberRPosition = Range.clip(climberRPosition, climberR_MIN_RANGE, climberR_MAX_RANGE);
+        climberRRPosition = Range.clip(climberRRPosition, climberRR_MIN_RANGE, climberRR_MAX_RANGE);
 
-        // write position values to the wrist and claw servo
+        // write position values to the servos
         climberD.setPosition(climberDPosition);
         button.setPosition(buttonPosition);
+        climberRR.setPosition(climberRRPosition);
+        climberR.setPosition(climberRPosition);
 
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
@@ -183,10 +186,12 @@ public class testDriveTrainMatt extends OpMode {
 
  //       telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("climberD", "climberD:  " + String.format("%.2f", climberDPosition));
-        telemetry.addData("button", "button:   " + String.format("%.2f", buttonPosition));
-        telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-//        telemetry.addData(
+        telemetry.addData("button", "button:  " + String.format("%.2f", buttonPosition));
+        telemetry.addData("climberR", "climberR:  " + String.format("%.2f", climberRPosition));
+        telemetry.addData("climberRR", "climberRR:  " + String.format("%.2f", climberRRPosition));
+        telemetry.addData("left tgt pwr",  "left  pwr:  " + String.format("%.2f", left));
+        telemetry.addData("right tgt pwr", "right pwr:  " + String.format("%.2f", right));
+
 
     }
 

@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-//import com.qualcomm.robotcore.hardware.Servo;
-
 /**
  * Created by Cameron on 11/4/2015.
  */
@@ -53,7 +51,7 @@ public class testDriveTrainMatt extends OpMode {
     Servo climberD;
     Servo climberR;
     Servo button;
-    servo climberRR;
+    Servo climberRR;
 
     /**
      * Constructor
@@ -139,27 +137,31 @@ public class testDriveTrainMatt extends OpMode {
         motorBackRight.setPower(right);
         motorBackLeft.setPower(left);
 
-        // update the position of the arm.
-       if (gamepad1.a) {
-//             if the A button is pushed on gamepad1, increment the position of
-//             the climberD servo.
+        // update the position of the servo.
+        if (gamepad1.a) {
            climberDPosition += climberDDelta;
         }
-
-
-
-        // update the position of the servo
+        if (gamepad1.x) {
+            climberRPosition += climberRDelta;
+        }
+        if (gamepad1.dpad_up) {
+            climberRRPosition += climberRRDelta;
+        }
         if (gamepad1.dpad_left) {
            buttonPosition += buttonDelta;
-       }
-
-       if (gamepad1.dpad_right) {
+        }
+        if (gamepad1.dpad_right) {
            buttonPosition -= buttonDelta;
-       }
-
+        }
         if (gamepad1.b) {
             climberDPosition -= climberDDelta;
-       }
+        }
+        if (gamepad1.y) {
+            climberRPosition -= climberRDelta;
+        }
+        if (gamepad1.dpad_down) {
+            climberRRPosition -= climberRRDelta;
+        }
 
         // update the position of the servo
 
@@ -191,7 +193,6 @@ public class testDriveTrainMatt extends OpMode {
         telemetry.addData("climberRR", "climberRR:  " + String.format("%.2f", climberRRPosition));
         telemetry.addData("left tgt pwr",  "left  pwr:  " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr:  " + String.format("%.2f", right));
-
 
     }
 

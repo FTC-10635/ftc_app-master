@@ -117,7 +117,7 @@ public class testDriveTrainMatt extends OpMode {
         // note that if y equal -1 then joystick is pushed all of the way forward.
         float left = -gamepad1.left_stick_y;
         float right = -gamepad1.right_stick_y;
-        float slide = -gamepad2.left_stick_y;
+        float slide = -gamepad1.left_stick_x;
 
         // clip the right/left values so that the values never exceed +/- 1
         right = Range.clip(right, -1, 1);

@@ -81,6 +81,16 @@ public class AutoLeft extends OpMode {
             frontrightMotor.setPowerFloat();
         }
 
+	backleftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        backrightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+	while (backleftMotor.getCurrentPosition() <> 0 && backleftMotor.getCurrentPosition() <> 0) {
+	telemetry.addData("Left Position", backleftMotor.getCurrentPosition());
+        telemetry.addData("Right Position", backrightMotor.getCurrentPosition());
+	wait();
+	}
+
+
     }
 
 

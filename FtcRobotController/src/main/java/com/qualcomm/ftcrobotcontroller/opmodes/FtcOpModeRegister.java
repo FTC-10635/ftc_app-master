@@ -58,7 +58,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("NullOp", NullOp.class);
       manager.register("testDriveTrainFinal", testDriveTrainFinal.class);
       manager.register("autonomousV_1", autonomousV_1.class);
-
+      manager.register("AutoLeft", AutoLeft.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.

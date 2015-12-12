@@ -55,6 +55,7 @@ public class AutoLeft extends OpMode {
 
     public void moveRobot(int driveDistance, String direction) {
 
+	int powerSettting = 1;
         int ENCODER_CPR = 1440;     //Encoder Counts per Revolution
         double GEAR_RATIO = 2;      //Gear Ratio
         int WHEEL_DIAMETER = 4;     //Diameter of the wheel in inches
@@ -66,6 +67,9 @@ public class AutoLeft extends OpMode {
         backleftMotor.setTargetPosition((int) COUNTS);
         backrightMotor.setTargetPosition((int) COUNTS);
 
+        if  (driveDistance < 0) {
+            powerSetting = -1;
+        }
 
         telemetry.addData("Motor Target", COUNTS);
         telemetry.addData("Left Position", backleftMotor.getCurrentPosition());
@@ -73,8 +77,8 @@ public class AutoLeft extends OpMode {
 
         if  ((Math.abs(backleftMotor.getCurrentPosition()) < Math.abs(backleftMotor.getTargetPosition()-1))&&
                 (Math.abs(backrightMotor.getCurrentPosition()) < Math.abs(backrightMotor.getTargetPosition()-1))) {
-            frontleftMotor.setPower(1.0);
-            frontrightMotor.setPower(1.0);
+            frontleftMotor.setPower(powerSetting);
+            frontrightMotor.setPower(powerSetting);
         }
         else {
             frontleftMotor.setPowerFloat();

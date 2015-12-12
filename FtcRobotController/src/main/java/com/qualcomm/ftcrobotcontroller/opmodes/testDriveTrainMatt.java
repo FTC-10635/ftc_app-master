@@ -107,7 +107,7 @@ public class testDriveTrainMatt extends OpMode {
     public void loop() {
 
 		/*
-		 * Gamepad 2 controls the slide motor via left stick
+		 * Gamepad 1 controls the slide motor via left stick
 		 *
 		 * Gamepad 1 controls the motors via the left and right sticks, and it controls the
 		 * servos via the a,b, x, y buttons

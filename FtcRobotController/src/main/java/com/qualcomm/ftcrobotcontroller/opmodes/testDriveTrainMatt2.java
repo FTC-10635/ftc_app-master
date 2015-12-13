@@ -3,13 +3,14 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * Created by Matthew Hotham on 11/4/2015.
  */
-public class testDriveTrainMatt extends OpMode {
+public class testDriveTrainMatt2 extends OpMode {
 
     // TETRIX VALUES.
 //    climber delivery system
@@ -24,7 +25,6 @@ public class testDriveTrainMatt extends OpMode {
 //    climber release right
     final static double climberRR_MIN_RANGE = 0.20;
     final static double climberRR_MAX_RANGE = 0.78;
-
 
     // position of the servo
     double climberDPosition;
@@ -55,11 +55,13 @@ public class testDriveTrainMatt extends OpMode {
     Servo button;
     Servo climberRR;
     TouchSensor touchBeacon;
+    ColorSensor colorBeacon;
+
 
     /**
      * Constructor
      */
-    public testDriveTrainMatt() {
+    public testDriveTrainMatt2() {
 
     }
 
@@ -83,6 +85,8 @@ public class testDriveTrainMatt extends OpMode {
         motorBackRight = hardwareMap.dcMotor.get("backRight");
         motorBackRight.setDirection(DcMotor.Direction.REVERSE);
         motorslideM = hardwareMap.dcMotor.get("slideM");
+        motorBackLeft.setDirection(DcMotor.Direction.FORWARD);
+        motorFrontLeft.setDirection(DcMotor.Direction.FORWARD);
 
         climberD = hardwareMap.servo.get("climberD");
         climberR = hardwareMap.servo.get("climberR");
@@ -90,6 +94,8 @@ public class testDriveTrainMatt extends OpMode {
         climberRR = hardwareMap.servo.get("climberRR");
 
         touchBeacon = hardwareMap.touchSensor.get("touchBeacon");
+        colorBeacon = hardwareMap.colorSensor.get("colorBeacon");
+
 
         // assign the starting position of the servos
         climberDPosition = 1.0;
@@ -104,6 +110,8 @@ public class testDriveTrainMatt extends OpMode {
 
     @Override
     public void loop() {
+
+        colorBeacon.enableLed(false);
 
 		/*
 		 * Gamepad 1 controls the slide motor via left stick
@@ -190,6 +198,11 @@ public class testDriveTrainMatt extends OpMode {
         telemetry.addData("right tgt pwr", "right pwr:  " + String.format("%.2f", right));
         telemetry.addData("slide tgt pwr", "slide pwr:  " + String.format("%.2f", slide));
         telemetry.addData("isPressed", String.valueOf(touchBeacon.isPressed()));
+        telemetry.addData("Red  ", colorBeacon.red());
+        telemetry.addData("Blue ", colorBeacon.blue());
+        telemetry.addData("Green", colorBeacon.green());
+        telemetry.addData("Clear", colorBeacon.alpha());
+
     }
 
 //     * Code to run when the op mode is first disabled goes here

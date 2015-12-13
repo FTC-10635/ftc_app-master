@@ -46,7 +46,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * a Modern Robotics Color Sensor.
  *
  * The op mode assumes that the color sensor
- * is configured with a name of "mr".
+ * is configured with a name of "colorBeacon".
  *
  * You can use the X button on either gamepad to turn the LED on and off.
  *

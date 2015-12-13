@@ -1,6 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -15,6 +15,8 @@ public class AutoLeft extends OpMode {
     DcMotor frontleftMotor;
     DcMotor backrightMotor;
     DcMotor backleftMotor;
+
+    int step = 1;
 
     @Override
     public void init() {
@@ -39,61 +41,80 @@ public class AutoLeft extends OpMode {
         backleftMotor.setPower(1.0);
         backrightMotor.setPower(1.0);
 
+        backleftMotor.setTargetPosition(0);
     }
 
     @Override
     public void loop() {
 
-        moveRobot(24,"s");
+        switch (step){
+            case(1):moveRobot(24,"f");break;
+            case(2):moveRobot(12,"b");break;
+            case(3):moveRobot(24,"l");break;
+            case(4):moveRobot(12,"r");break;
+            default:break;
+        }
 
     }
-    public void resetEncoder() throws InterruptedException {
-        backleftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        backrightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+    @Override
+    public void stop() {
 
     }
 
     public void moveRobot(int driveDistance, String direction) {
 
-	int powerSettting = 1;
         int ENCODER_CPR = 1440;     //Encoder Counts per Revolution
         double GEAR_RATIO = 2;      //Gear Ratio
         int WHEEL_DIAMETER = 4;     //Diameter of the wheel in inches
-        int DISTANCE = driveDistance;          //Distance in inches to drive
+        double leftPower = 1.0;
+        double rightPower = 1.0;
         final double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
-        final double ROTATIONS = DISTANCE / CIRCUMFERENCE;
+        final double ROTATIONS = driveDistance / CIRCUMFERENCE;
         final double COUNTS = ENCODER_CPR * ROTATIONS * GEAR_RATIO;
+        double rightCount = 0.01;
+        double leftCount = 0.01;
 
-        backleftMotor.setTargetPosition((int) COUNTS);
-        backrightMotor.setTargetPosition((int) COUNTS);
-
-        if  (driveDistance < 0) {
-            powerSetting = -1;
+        switch (direction) {
+            case "f":leftPower = 1.0;rightPower = 1.0;rightCount = COUNTS;leftCount = COUNTS;break;
+            case "b":leftPower = -1.0;rightPower = -1.0;rightCount = -COUNTS;leftCount = -COUNTS;break;
+            case "l":leftPower = -1.0;rightPower = 1.0;rightCount = COUNTS;leftCount = -COUNTS;break;
+            case "r":leftPower = 1.0;rightPower = -1.0;rightCount = -COUNTS;leftCount = COUNTS;break;
+            default:break;
         }
+
+        backleftMotor.setTargetPosition((int) leftCount);
+        backrightMotor.setTargetPosition((int) rightCount);
+
+        backleftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        backrightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
 
         telemetry.addData("Motor Target", COUNTS);
         telemetry.addData("Left Position", backleftMotor.getCurrentPosition());
         telemetry.addData("Right Position", backrightMotor.getCurrentPosition());
+        telemetry.addData("Step",step);
 
-        if  ((Math.abs(backleftMotor.getCurrentPosition()) < Math.abs(backleftMotor.getTargetPosition()-1))&&
-                (Math.abs(backrightMotor.getCurrentPosition()) < Math.abs(backrightMotor.getTargetPosition()-1))) {
-            frontleftMotor.setPower(powerSetting);
-            frontrightMotor.setPower(powerSetting);
+        if  ((Math.abs(backleftMotor.getCurrentPosition())/(0.001+Math.abs(backleftMotor.getTargetPosition()))*100 < 95)&&
+                (Math.abs(backrightMotor.getCurrentPosition())/(0.001+Math.abs(backrightMotor.getTargetPosition()))*100 <95)) {
+            frontleftMotor.setPower(leftPower);
+            frontrightMotor.setPower(rightPower);
         }
         else {
             frontleftMotor.setPowerFloat();
             frontrightMotor.setPowerFloat();
+            step++;
+            backleftMotor.setTargetPosition(0);
+            backrightMotor.setTargetPosition(0);
+            backleftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+            backrightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ie) {
+                //Handle exception
+            }
         }
-
-	backleftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        backrightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-
-	while (backleftMotor.getCurrentPosition() <> 0 && backleftMotor.getCurrentPosition() <> 0) {
-	telemetry.addData("Left Position", backleftMotor.getCurrentPosition());
-        telemetry.addData("Right Position", backrightMotor.getCurrentPosition());
-	wait();
-	}
-
 
     }
 

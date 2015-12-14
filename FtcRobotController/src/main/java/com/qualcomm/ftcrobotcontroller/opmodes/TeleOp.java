@@ -3,16 +3,14 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * Created by Matthew Hotham on 11/4/2015.
  */
-public class testDriveTrainMatt2 extends OpMode {
+public class TeleOp extends OpMode {
 
-    // TETRIX VALUES.
+//
 //    climber delivery system
     final static double climberD_MIN_RANGE  = 0.00;
     final static double climberD_MAX_RANGE  = 1.00;
@@ -20,8 +18,8 @@ public class testDriveTrainMatt2 extends OpMode {
     final static double climberR_MIN_RANGE  = 0.00;
     final static double climberR_MAX_RANGE  = 0.68;
 //    button presser
-    final static double button_MIN_RANGE  = 0.30;
-    final static double button_MAX_RANGE  = 0.60;
+//    final static double button_MIN_RANGE  = 0.30;
+//    final static double button_MAX_RANGE  = 0.60;
 //    climber release right
     final static double climberRR_MIN_RANGE = 0.20;
     final static double climberRR_MAX_RANGE = 1.00;
@@ -36,9 +34,9 @@ public class testDriveTrainMatt2 extends OpMode {
 
     double climberRDelta = 1.0;
 
-    double buttonPosition;
+//    double buttonPosition;
 
-    double buttonDelta = 0.01;
+//    double buttonDelta = 0.01;
 
     double climberRRPosition;
 
@@ -52,16 +50,16 @@ public class testDriveTrainMatt2 extends OpMode {
     DcMotor motorslideM;
     Servo climberD;
     Servo climberR;
-    Servo button;
+//    Servo button;
     Servo climberRR;
-    TouchSensor touchBeacon;
-    ColorSensor colorBeacon;
+//    TouchSensor touchBeacon;
+//    ColorSensor colorBeacon;
 
 
     /**
      * Constructor
      */
-    public testDriveTrainMatt2() {
+    public TeleOp() {
 
     }
 
@@ -90,17 +88,17 @@ public class testDriveTrainMatt2 extends OpMode {
 
         climberD = hardwareMap.servo.get("climberD");
         climberR = hardwareMap.servo.get("climberR");
-        button = hardwareMap.servo.get("button");
+//        button = hardwareMap.servo.get("button");
         climberRR = hardwareMap.servo.get("climberRR");
 
-        touchBeacon = hardwareMap.touchSensor.get("touchBeacon");
-        colorBeacon = hardwareMap.colorSensor.get("colorBeacon");
+//        touchBeacon = hardwareMap.touchSensor.get("touchBeacon");
+//        colorBeacon = hardwareMap.colorSensor.get("colorBeacon");
 
 
         // assign the starting position of the servos
         climberDPosition = 1.0;
         climberRPosition = 0.68;
-        buttonPosition = 0.45;
+//        buttonPosition = 0.45;
         climberRRPosition = 0.20;
     }
 
@@ -111,7 +109,7 @@ public class testDriveTrainMatt2 extends OpMode {
     @Override
     public void loop() {
 
-        colorBeacon.enableLed(false);
+//        colorBeacon.enableLed(false);
 
 		/*
 		 * Gamepad 1 controls the slide motor via left stick
@@ -124,7 +122,7 @@ public class testDriveTrainMatt2 extends OpMode {
         // note that if y equal -1 then joystick is pushed all of the way forward.
         float left = -gamepad1.left_stick_y;
         float right = -gamepad1.right_stick_y;
-        float slide = -gamepad1.left_stick_x;
+        float slide = -gamepad2.left_stick_y;
 
         // clip the right/left values so that the values never exceed +/- 1
         right = Range.clip(right, -1, 1);
@@ -145,40 +143,40 @@ public class testDriveTrainMatt2 extends OpMode {
         motorslideM.setPower(slide);
 
         // update the position of the servo.
-        if (gamepad1.a) {
+        if (gamepad2.a) {
            climberDPosition += climberDDelta;
         }
-        if (gamepad1.x) {
+        if (gamepad2.x) {
             climberRRPosition -= climberRRDelta;
         }
-        if (gamepad1.dpad_up) {
+        if (gamepad2.dpad_up) {
             climberRPosition -= climberRDelta;
         }
-        if (gamepad1.dpad_left) {
-           buttonPosition -= buttonDelta;
-        }
-        if (gamepad1.dpad_right) {
-           buttonPosition += buttonDelta;
-        }
-        if (gamepad1.b) {
+//        if (gamepad1.dpad_left) {
+//           buttonPosition -= buttonDelta;
+//        }
+//        if (gamepad1.dpad_right) {
+//           buttonPosition += buttonDelta;
+//        }
+        if (gamepad2.b) {
             climberDPosition -= climberDDelta;
         }
-        if (gamepad1.y) {
+        if (gamepad2.y) {
             climberRRPosition += climberRRDelta;
         }
-        if (gamepad1.dpad_down) {
+        if (gamepad2.dpad_down) {
             climberRPosition += climberRDelta;
         }
 
         // clip the position values so that they never exceed their allowed range.
         climberDPosition = Range.clip(climberDPosition, climberD_MIN_RANGE, climberD_MAX_RANGE);
-        buttonPosition = Range.clip(buttonPosition, button_MIN_RANGE, button_MAX_RANGE);
+//        buttonPosition = Range.clip(buttonPosition, button_MIN_RANGE, button_MAX_RANGE);
         climberRPosition = Range.clip(climberRPosition, climberR_MIN_RANGE, climberR_MAX_RANGE);
         climberRRPosition = Range.clip(climberRRPosition, climberRR_MIN_RANGE, climberRR_MAX_RANGE);
 
         // write position values to the servos
         climberD.setPosition(climberDPosition);
-        button.setPosition(buttonPosition);
+//        button.setPosition(buttonPosition);
         climberRR.setPosition(climberRRPosition);
         climberR.setPosition(climberRPosition);
 
@@ -191,17 +189,17 @@ public class testDriveTrainMatt2 extends OpMode {
 
  //       telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("climberD", "climberD:  " + String.format("%.2f", climberDPosition));
-        telemetry.addData("button", "button:  " + String.format("%.2f", buttonPosition));
+//        telemetry.addData("button", "button:  " + String.format("%.2f", buttonPosition));
         telemetry.addData("climberR", "climberR:  " + String.format("%.2f", climberRPosition));
         telemetry.addData("climberRR", "climberRR:  " + String.format("%.2f", climberRRPosition));
         telemetry.addData("left tgt pwr",  "left  pwr:  " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr:  " + String.format("%.2f", right));
         telemetry.addData("slide tgt pwr", "slide pwr:  " + String.format("%.2f", slide));
-        telemetry.addData("isPressed", String.valueOf(touchBeacon.isPressed()));
-        telemetry.addData("Red  ", colorBeacon.red());
-        telemetry.addData("Blue ", colorBeacon.blue());
-        telemetry.addData("Green", colorBeacon.green());
-        telemetry.addData("Clear", colorBeacon.alpha());
+//        telemetry.addData("isPressed", String.valueOf(touchBeacon.isPressed()));
+//        telemetry.addData("Red  ", colorBeacon.red());
+//        telemetry.addData("Blue ", colorBeacon.blue());
+//        telemetry.addData("Green", colorBeacon.green());
+//        telemetry.addData("Clear", colorBeacon.alpha());
 
     }
 

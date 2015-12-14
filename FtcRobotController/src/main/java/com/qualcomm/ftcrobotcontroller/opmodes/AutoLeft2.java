@@ -4,6 +4,10 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 
 /**
  * Created by Ben Hardin on 12/11/2015.
@@ -15,6 +19,13 @@ public class AutoLeft2 extends OpMode {
     DcMotor frontleftMotor;
     DcMotor backrightMotor;
     DcMotor backleftMotor;
+    Servo climberD;
+    Servo climberR;
+    Servo button;
+    Servo climberRR;
+    TouchSensor touchBeacon;
+    ColorSensor colorBeacon;
+
 
     int step = 1;
 
@@ -27,6 +38,8 @@ public class AutoLeft2 extends OpMode {
 
         frontleftMotor.setDirection(DcMotor.Direction.REVERSE);
         backleftMotor.setDirection(DcMotor.Direction.REVERSE);
+        frontrightMotor.setDirection(DcMotor.Direction.FORWARD);
+        backrightMotor.setDirection(DcMotor.Direction.FORWARD);
 
         backleftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         backrightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -56,8 +69,8 @@ public class AutoLeft2 extends OpMode {
         switch (step){
             case(1):moveRobot(24,"f");break;
             case(2):moveRobot(12,"b");break;
-            case(3):moveRobot(24,"l");break;
-            case(4):moveRobot(12,"r");break;
+            case(3):moveRobot(12,"l");break;
+            case(4):moveRobot(36,"f");break;
             default:break;
         }
 
@@ -84,8 +97,8 @@ public class AutoLeft2 extends OpMode {
         switch (direction) {
             case "f":rightCount = COUNTS;leftCount = COUNTS;break;
             case "b":rightCount = -COUNTS;leftCount = -COUNTS;break;
-            case "l":rightCount = COUNTS;leftCount = -COUNTS;break;
-            case "r":rightCount = -COUNTS;leftCount = COUNTS;break;
+            case "r":rightCount = COUNTS;leftCount = -COUNTS;break;
+            case "l":rightCount = -COUNTS;leftCount = COUNTS;break;
             default:break;
         }
 

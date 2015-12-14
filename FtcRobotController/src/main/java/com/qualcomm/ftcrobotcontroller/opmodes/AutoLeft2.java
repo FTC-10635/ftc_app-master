@@ -20,9 +20,7 @@ public class AutoLeft2 extends OpMode {
     DcMotor backrightMotor;
     DcMotor backleftMotor;
     Servo climberD;
-    Servo climberR;
     Servo button;
-    Servo climberRR;
     TouchSensor touchBeacon;
     ColorSensor colorBeacon;
 
@@ -35,6 +33,9 @@ public class AutoLeft2 extends OpMode {
         frontrightMotor = hardwareMap.dcMotor.get("frontRight");
         backleftMotor = hardwareMap.dcMotor.get("backLeft");
         backrightMotor = hardwareMap.dcMotor.get("backRight");
+
+        climberD = hardwareMap.servo.get("climberD");
+        button = hardwareMap.servo.get("button");
 
         frontleftMotor.setDirection(DcMotor.Direction.REVERSE);
         backleftMotor.setDirection(DcMotor.Direction.REVERSE);

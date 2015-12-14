@@ -120,6 +120,9 @@ public class AutoLeft2 extends OpMode {
         telemetry.addData("Front Left Position", frontleftMotor.getCurrentPosition());
         telemetry.addData("Front Right Position", frontrightMotor.getCurrentPosition());
         telemetry.addData("Step", step);
+//        telemetry.addData("climberD", "climberD:  " + String.format("%.2f", climberDPosition));
+//        telemetry.addData("button", "button:  " + String.format("%.2f", buttonPosition));
+
 
         if  ((Math.abs(backleftMotor.getCurrentPosition())/(0.001+Math.abs(backleftMotor.getTargetPosition()))*100 > 95)&&
                 (Math.abs(backrightMotor.getCurrentPosition())/(0.001+Math.abs(backrightMotor.getTargetPosition()))*100 > 95)) {

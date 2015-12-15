@@ -16,7 +16,7 @@ public class TeleOp extends OpMode {
     final static double climberD_MAX_RANGE  = 1.00;
 //    climber release left
     final static double climberR_MIN_RANGE  = 0.00;
-    final static double climberR_MAX_RANGE  = 0.68;
+    final static double climberR_MAX_RANGE  = 0.78;
 //    button presser
 //    final static double button_MIN_RANGE  = 0.30;
 //    final static double button_MAX_RANGE  = 0.60;
@@ -97,7 +97,7 @@ public class TeleOp extends OpMode {
 
         // assign the starting position of the servos
         climberDPosition = 1.0;
-        climberRPosition = 0.68;
+        climberRPosition = 0.78;
 //        buttonPosition = 0.45;
         climberRRPosition = 0.20;
     }
@@ -143,10 +143,10 @@ public class TeleOp extends OpMode {
         motorslideM.setPower(slide);
 
         // update the position of the servo.
-        if (gamepad2.a) {
+        if (gamepad2.x) {
            climberDPosition += climberDDelta;
         }
-        if (gamepad2.x) {
+        if (gamepad2.a) {
             climberRRPosition -= climberRRDelta;
         }
         if (gamepad2.dpad_up) {
@@ -158,10 +158,10 @@ public class TeleOp extends OpMode {
 //        if (gamepad1.dpad_right) {
 //           buttonPosition += buttonDelta;
 //        }
-        if (gamepad2.b) {
+        if (gamepad2.y) {
             climberDPosition -= climberDDelta;
         }
-        if (gamepad2.y) {
+        if (gamepad2.b) {
             climberRRPosition += climberRRDelta;
         }
         if (gamepad2.dpad_down) {

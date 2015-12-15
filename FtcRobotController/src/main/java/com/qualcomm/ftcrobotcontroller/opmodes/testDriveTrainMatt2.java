@@ -18,7 +18,7 @@ public class testDriveTrainMatt2 extends OpMode {
     final static double climberD_MAX_RANGE  = 1.00;
 //    climber release left
     final static double climberR_MIN_RANGE  = 0.00;
-    final static double climberR_MAX_RANGE  = 0.68;
+    final static double climberR_MAX_RANGE  = 0.78;
 //    button presser
     final static double button_MIN_RANGE  = 0.30;
     final static double button_MAX_RANGE  = 0.60;
@@ -99,7 +99,7 @@ public class testDriveTrainMatt2 extends OpMode {
 
         // assign the starting position of the servos
         climberDPosition = 1.0;
-        climberRPosition = 0.68;
+        climberRPosition = 0.78;
         buttonPosition = 0.45;
         climberRRPosition = 0.20;
     }

@@ -64,12 +64,14 @@ public class FtcOpModeRegister implements OpModeRegister {
 //    manager.register("testingEncoders", testingEncoders.class);
 //    manager.register("MRRGBExample", MRRGBExample.class);
     manager.register("testDriveTrainMatt2", testDriveTrainMatt2.class);
-    manager.register("AutoLeft", AutoLeft.class);
-    manager.register("autonomousV_1", autonomousV_1.class);
+//    manager.register("AutoLeft", AutoLeft.class);
+//    manager.register("autonomousV_1", autonomousV_1.class);
     manager.register("AutoLeft2", AutoLeft2.class);
       manager.register("TeleOp", TeleOp.class);
-
-
+      manager.register("Drive Train 3", testDriveTrain3.class);
+      manager.register("AutoLeft3", AutoLeft3.class);
+      manager.register("AutoLeft3", AutoRight3.class);
+      manager.register("launchClimbers", launchClimbers.class);
       /*
      * Uncomment any of the following lines if you want to register an op mode.
      */

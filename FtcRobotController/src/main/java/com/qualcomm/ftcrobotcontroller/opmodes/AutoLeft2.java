@@ -17,8 +17,8 @@ public class AutoLeft2 extends OpMode {
 
     DcMotor frontrightMotor;
     DcMotor frontleftMotor;
-    DcMotor backrightMotor;
     DcMotor backleftMotor;
+    DcMotor backrightMotor;
     Servo climberD;
     Servo button;
     TouchSensor touchBeacon;
